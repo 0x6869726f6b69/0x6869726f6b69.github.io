@@ -153,6 +153,18 @@ window.PUBLICATIONS = [
 
   /* --- Preprints --- */
   {
+    id: "arxiv-2607-24009",
+    category: "preprint",
+    title: "Structural Loss Metrics for Tensor Approximation via Matrix Low-Rank Approximation",
+    authors: ["Hasegawa, H."],
+    venue: "arXiv preprint arXiv:2607.24009",
+    date: "2026-07-27",
+    abstract: [
+      "Matricized low-rank approximation via SVD is a standard surrogate for tensor decompositions, but entry-wise reconstruction error fails to capture multiway geometric degradation. Under an orthogonal Tucker model, we characterize this degradation using two metrics: cross-mode Direction Loss, measuring geometric subspace deviation from rank truncation and noise rotation, and Interaction Loss, quantifying multilinear interaction distortion in the core tensor. We prove that squared relative reconstruction error orthogonally decomposes into interaction loss and out-of-subspace energy, and derive a Wedin-type bound establishing the stability of a plug-in Direction Loss estimator. Experiments on synthetic and hyperspectral datasets demonstrate that nearly identical reconstruction errors can yield markedly different structural-loss profiles; hyperspectral patches with comparable reconstruction errors exhibit up to a 4.6-fold difference in Direction Loss, correlating with severe visual blurring.",
+    ],
+    links: { arxiv: "https://arxiv.org/abs/2607.24009" },
+  },
+  {
     id: "arxiv-2604-16894",
     category: "preprint",
     title: "Covariance-Based Structural Equation Modeling in Small-Sample Settings with p > n",
