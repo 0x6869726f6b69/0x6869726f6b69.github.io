@@ -396,7 +396,7 @@
           ${section(
             "Awards",
             (CV.awards || []).map(
-              (a) => `<li><strong>${fmtShort(a.date)}</strong>: ${/award/i.test(a.name) ? TROPHY : ""}${esc(a.name)}, ${esc(a.org)}</li>`
+              (a) => `<li><strong>${fmtShort(a.date)}</strong>: ${esc(a.name)}, ${esc(a.org)}</li>`
             )
           )}
           ${section("Service and leadership", (CV.service || []).map((s) => `<li>${esc(s)}</li>`))}
