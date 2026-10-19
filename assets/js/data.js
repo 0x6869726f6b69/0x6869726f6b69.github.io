@@ -232,6 +232,18 @@ window.TALKS = [
     links: { url: "https://ibisml.org/ibis2026/posters/" },
   },
   {
+    id: "jfssa-2026",
+    title: "Consistency and Limitations of Mode-wise Normalized Eigenvalue Estimation in High-Dimensional Tensor Data",
+    titleJa: "高次元テンソルデータにおけるmode-wise正規化固有値推定の一致性と限界",
+    language: "ja",
+    type: "Oral presentation",
+    authors: ["Hasegawa, H.", "Yata, K."],
+    venue: "2026 Japanese Joint Statistical Meeting, Multivariate Analysis (3) [4EAM-04]",
+    location: "Yokohama City University, Yokohama, Japan",
+    date: "2026-09-10",
+    links: { url: "https://pub.confit.atlas.jp/en/event/jfssa2026/presentation/4EAM-04" },
+  },
+  {
     id: "sfs14-physiological-synchrony",
     title: "Physiological Synchrony Between Performers and Audiences in String Quartet Performances and Its Association with Subjective Experience",
     titleJa: "弦楽四重奏における演奏者と観客間の生体同期と主観評価の関連分析",
