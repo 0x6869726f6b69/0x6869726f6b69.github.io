@@ -31,7 +31,12 @@
   /* ---------- helpers ---------- */
   const esc = (s) =>
     String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
-  const paras = (list) => (list || []).filter(Boolean).map((p) => `<p>${esc(p)}</p>`).join("");
+  // Escapes text, then turns [label](https://...) into a link.
+  const rich = (s) =>
+    esc(s).replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+)\)/g, (_, label, url) =>
+      `<a href="${url}"${url.startsWith("http") ? ' target="_blank" rel="noopener"' : ""}>${label}</a>`
+    );
+  const paras = (list) => (list || []).filter(Boolean).map((p) => `<p>${rich(p)}</p>`).join("");
   const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const parts = (d) => String(d || "").split("-").map(Number);
   const fmtMonth = (d) => { const [y, m] = parts(d); return m ? `${MONTHS[m - 1]} ${y}` : String(y || ""); };

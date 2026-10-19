@@ -10,18 +10,18 @@
 /* ---------- プロフィール（左のサイドバー） ---------- */
 window.SITE = {
   name: "Hiroki Hasegawa",
-  pronouns: "",                      // 例: "He/Him"
-  bio: "xxxxxx",                     // 例: "PhD Student in Statistics"
-  location: "xxxxxx",
-  affiliation: "xxxxxx",
+  pronouns: "He/Him",
+  bio: "PhD Student in Policy and Planning Sciences",
+  location: "Tsukuba, JPN",
+  affiliation: "University of Tsukuba",
   avatar: "assets/img/avatar.svg",   // 顔写真に差し替える場合は assets/img/ に置いてパスを変更
   citationName: "Hasegawa, H.",      // 著者リストの中でこの表記を太字にします
   since: 2026,
 
   links: {
-    email: "",                       // 例: "you@example.com"
+    email: "hasegawa.hiroki.tkb_en@u.tsukuba.ac.jp",
     googleScholar: "",               // 例: "https://scholar.google.com/citations?user=..."
-    orcid: "",                       // 例: "https://orcid.org/0000-0000-0000-0000"
+    orcid: "https://orcid.org/0009-0009-3022-4359",
     researchmap: "",                 // 例: "https://researchmap.jp/..."
     github: "https://github.com/0x6869726f6b69",
     linkedin: "",
@@ -30,8 +30,13 @@ window.SITE = {
 };
 
 /* ---------- About me（トップページ） ---------- */
+// 文中のリンクは [表示する文字](https://...) と書きます
 window.ABOUT = {
-  paragraphs: ["xxxxxx", "xxxxxx", "xxxxxx"],
+  paragraphs: [
+    "I am a first-year PhD student in Policy and Planning Sciences at the University of Tsukuba, advised by [Prof. Yukihiko Okada](https://scholar.google.com/citations?user=yXLs6SAAAAAJ). My academic background is in mathematics and statistics, and my research focuses on developing statistical theory and computational methods for high-dimensional and multidimensional data.",
+    "My primary research interests lie in high-dimensional statistics, tensor data analysis, tensor network, statistical machine learning, and optimization. I am currently working on theoretical and methodological problems involving low-rank tensor estimation, time-varying tensor structures, and efficient computation for large-scale structured data. More broadly, I am interested in understanding how multidimensional structures can be exploited to improve statistical estimation, representation, and computation, with applications ranging from biomedical and physiological data to service and educational data.",
+    "Outside of research, I enjoy playing tennis and exploring new ideas across mathematics, statistics, and machine learning.",
+  ],
 };
 
 /* ---------- News（新しい順に自動で並び、5件ずつ流れて表示されます） ---------- */
