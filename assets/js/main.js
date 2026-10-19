@@ -113,11 +113,10 @@
   </div>
 </header>`;
 
-    // Theme toggle (follows the OS setting until the visitor picks one)
+    // Theme toggle (dark palette by default; the visitor can switch to light)
     const root = document.documentElement;
-    const mq = matchMedia("(prefers-color-scheme: dark)");
     const themeBtn = document.querySelector(".theme-toggle");
-    const current = () => root.getAttribute("data-theme") || (mq.matches ? "dark" : "light");
+    const current = () => (root.getAttribute("data-theme") === "light" ? "light" : "dark");
     const paint = () => {
       const dark = current() === "dark";
       themeBtn.innerHTML = dark ? ICON.sun : ICON.moon;
@@ -130,7 +129,6 @@
       try { localStorage.setItem("theme", next); } catch (e) { /* storage unavailable */ }
       paint();
     });
-    mq.addEventListener("change", paint);
     paint();
 
     // Mobile menu
