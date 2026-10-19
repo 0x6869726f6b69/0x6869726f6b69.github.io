@@ -208,6 +208,30 @@ window.PUBLICATIONS = [
 // type: "Oral presentation" / "Poster presentation" / "Talk" など。award を入れると受賞として表示
 window.TALKS = [
   {
+    id: "samit-2026",
+    title: "Periodic Tensor Subspace Analysis for Quantifying Beat-to-Beat Structural Changes",
+    titleJa: "心拍間の構造変化の定量化に向けた周期的テンソル部分空間解析",
+    language: "ja",
+    type: "Oral presentation",
+    authors: ["Hasegawa, H."],
+    venue: "4th JAMIT Symposium on Advanced Medical Imaging Technology for Young Investigators (SAMIT 2026), Oral Session 5 (OS5-3)",
+    location: "Nagoya Institute of Technology, Nagoya, Japan",
+    date: "2026-11-04",
+    links: { url: "https://sites.google.com/view/samit2026ngo/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0" },
+  },
+  {
+    id: "ibis-2026",
+    title: "Low-Rank Structure Estimation for Time-Series Tensors with Periodic Structure",
+    titleJa: "周期構造を考慮した時系列テンソルの低ランク構造推定",
+    language: "ja",
+    type: "Poster presentation",
+    authors: ["Hasegawa, H."],
+    venue: "29th Information-Based Induction Sciences Workshop (IBIS2026), Poster Session 1 [1-165]",
+    location: "Sonic City, Saitama, Japan",
+    date: "2026-10-27",
+    links: { url: "https://ibisml.org/ibis2026/posters/" },
+  },
+  {
     id: "sfs14-physiological-synchrony",
     title: "Physiological Synchrony Between Performers and Audiences in String Quartet Performances and Its Association with Subjective Experience",
     titleJa: "弦楽四重奏における演奏者と観客間の生体同期と主観評価の関連分析",
