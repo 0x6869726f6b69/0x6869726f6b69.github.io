@@ -373,7 +373,9 @@
         return items.length
           ? `<h2>${esc(c.title)}</h2>${list(
               items.map(
-                (p) => `<li>${authors(p.authors)}. <a href="${pubUrl(p)}">${esc(p.title)}</a>. <i>${esc(p.venue)}</i>, ${year(p.date)}.${inJapanese(p)}</li>`
+                (p) => `<li>${authors(p.authors).replace(/(\.(<\/strong>)?)?$/, (m) => m || ".")} <a href="${pubUrl(p)}">${esc(p.title)}</a>. <i>${esc(p.venue)}</i>, ${year(p.date)}.${inJapanese(p)}${
+                  p.award ? `<br>${awardBadge(p)}` : ""
+                }</li>`
               )
             )}`
           : "";
