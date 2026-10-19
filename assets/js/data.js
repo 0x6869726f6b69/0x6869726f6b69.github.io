@@ -21,11 +21,11 @@ window.SITE = {
 
   links: {
     email: "hasegawa.hiroki.tkb_en@u.tsukuba.ac.jp",
-    googleScholar: "",               // 例: "https://scholar.google.com/citations?user=..."
+    googleScholar: "https://scholar.google.com/citations?user=Z1ijml4AAAAJ",
     orcid: "https://orcid.org/0009-0009-3022-4359",
     researchmap: "https://researchmap.jp/hiroki_hasegawa",
     github: "https://github.com/0x6869726f6b69",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/hiroki-hasegawa-71783a36b",
     x: "",
   },
 };
