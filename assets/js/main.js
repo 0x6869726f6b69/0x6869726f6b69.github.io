@@ -48,7 +48,8 @@
   const joinNames = (names) => (names.length > 1 ? `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}` : names.join(""));
   const authors = (list) => joinNames((list || []).map((n) => (n === SITE.citationName ? `<strong>${esc(n)}</strong>` : esc(n))));
   const inJapanese = (item) => (item.language === "ja" ? ' <span class="muted">(in Japanese)</span>' : "");
-  const awardBadge = (item) => (item.award ? `<span class="award-badge">${ICON_AWARD}${esc(item.award)}</span>` : "");
+  const TROPHY = '<span class="trophy" aria-hidden="true">🏆</span>';
+  const awardBadge = (item) => (item.award ? `<span class="award-badge">${TROPHY}${esc(item.award)}</span>` : "");
   const citation = (p) => {
     if (p.citation) return p.citation;
     const link = (p.links && (p.links.doi || p.links.arxiv)) || "";
@@ -62,8 +63,6 @@
   };
   const PUB_LINKS = { doi: "DOI", arxiv: "arXiv", paper: "Download Paper", slides: "Download Slides", code: "Code", url: "Link" };
   const TALK_LINKS = { paper: "Paper", url: "Link", slides: "Slides", video: "Video" };
-  const ICON_AWARD =
-    '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 3h10v2h3v3a4 4 0 0 1-4 4h-.3A5 5 0 0 1 13 14.9V18h3v3H8v-3h3v-3.1A5 5 0 0 1 8.3 12H8a4 4 0 0 1-4-4V5h3V3Zm0 4H6v1a2 2 0 0 0 1 1.7V7Zm10 0v2.7A2 2 0 0 0 18 8V7h-1Z"/></svg>';
 
   const svg = (body, attrs = 'fill="currentColor"') => `<svg class="icon" viewBox="0 0 24 24" ${attrs} aria-hidden="true">${body}</svg>`;
   const stroke = 'fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
@@ -262,6 +261,7 @@
         <div class="page__content">
           <p class="archive__item-authors">${authors(p.authors)}</p>
           ${originalTitle(p)}
+          ${awardBadge(p)}
           ${linkRow(p.links, PUB_LINKS)}
           ${(p.abstract || []).length ? `<h2>Abstract</h2>${paras(p.abstract)}` : ""}
           <p class="small">Recommended citation: ${esc(citation(p))}</p>
@@ -390,10 +390,15 @@
           ${section(
             "Talks",
             TALKS.map((t) => `<li><a href="${talkUrl(t)}">${esc(t.title)}</a>, ${talkMeta(t)}, ${fmtShort(t.date)}.${inJapanese(t)}${
-              t.award ? ` <strong>[${esc(t.award)}]</strong>` : ""
+              t.award ? `<br>${awardBadge(t)}` : ""
             }</li>`)
           )}
-          ${section("Awards", (CV.awards || []).map((a) => `<li><strong>${fmtShort(a.date)}</strong>: ${esc(a.name)}, ${esc(a.org)}</li>`))}
+          ${section(
+            "Awards",
+            (CV.awards || []).map(
+              (a) => `<li><strong>${fmtShort(a.date)}</strong>: ${/award/i.test(a.name) ? TROPHY : ""}${esc(a.name)}, ${esc(a.org)}</li>`
+            )
+          )}
           ${section("Service and leadership", (CV.service || []).map((s) => `<li>${esc(s)}</li>`))}
         </div>
       </article>`;
@@ -406,6 +411,7 @@
       <h2 class="archive__item-title"><a href="${pubUrl(p)}">${esc(p.title)}</a></h2>
       <p class="archive__item-authors">${authors(p.authors)}</p>
       <p class="archive__item-meta">${publishedIn(p)}</p>
+      ${awardBadge(p)}
       ${p.excerpt ? `<p class="archive__item-excerpt">${esc(p.excerpt)}</p>` : ""}
       ${linkRow(p.links, PUB_LINKS)}
     </div>`;

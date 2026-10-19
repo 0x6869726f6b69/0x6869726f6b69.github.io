@@ -289,8 +289,12 @@ svg.icon { width: 1.15em; height: 1.15em; flex: none; }
   font-weight: 700;
 }
 
+.trophy { margin-right: .3em; font-style: normal; }
+.award-badge .trophy { margin-right: 0; font-size: 1.3em; line-height: 1; }
+
 /* CV */
 .cv-list li { margin-bottom: .6em; }
+.cv-list .award-badge { margin: .3em 0 0; }
 
 /* 404 */
 .notfound { padding: 2em 0; }

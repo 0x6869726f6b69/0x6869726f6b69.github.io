@@ -205,7 +205,8 @@ window.PUBLICATIONS = [
 ];
 
 /* ---------- Talks and presentations ---------- */
-// type: "Oral presentation" / "Poster presentation" / "Talk" など。award を入れると受賞として表示
+// type: "Oral presentation" / "Poster presentation" / "Talk" など。award を入れると 🏆 付きで受賞として表示
+// （Publications の各論文にも award: "Best Paper Award" のように書けば同じく表示されます）
 window.TALKS = [
   {
     id: "samit-2026",
