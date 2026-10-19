@@ -38,14 +38,21 @@
     );
   const paras = (list) => (list || []).filter(Boolean).map((p) => `<p>${rich(p)}</p>`).join("");
   const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const SHORT_MONTHS = ["Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.", "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."];
   const parts = (d) => String(d || "").split("-").map(Number);
   const fmtMonth = (d) => { const [y, m] = parts(d); return m ? `${MONTHS[m - 1]} ${y}` : String(y || ""); };
+  const fmtShort = (d) => { const [y, m] = parts(d); return m ? `${SHORT_MONTHS[m - 1]} ${y}` : String(y || ""); };
   const fmtDay = (d) => { const [y, m, day] = parts(d); return day ? `${MONTHS[m - 1]} ${String(day).padStart(2, "0")}, ${y}` : fmtMonth(d); };
   const year = (d) => parts(d)[0] || "";
   const ext = (url) => (/^https?:/.test(url) ? ' target="_blank" rel="noopener"' : "");
-  const authors = (list) => {
-    const names = (list || []).map((n) => (n === SITE.citationName ? `<strong>${esc(n)}</strong>` : esc(n)));
-    return names.length > 1 ? `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}` : names.join("");
+  const joinNames = (names) => (names.length > 1 ? `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}` : names.join(""));
+  const authors = (list) => joinNames((list || []).map((n) => (n === SITE.citationName ? `<strong>${esc(n)}</strong>` : esc(n))));
+  const inJapanese = (item) => (item.language === "ja" ? ' <span class="muted">(in Japanese)</span>' : "");
+  const awardBadge = (item) => (item.award ? `<span class="award-badge">${ICON_AWARD}${esc(item.award)}</span>` : "");
+  const citation = (p) => {
+    if (p.citation) return p.citation;
+    const link = (p.links && (p.links.doi || p.links.arxiv)) || "";
+    return `${joinNames(p.authors || [])} (${year(p.date)}). ${p.title}. ${p.venue}.${link ? ` ${link}` : ""}`;
   };
   const linkRow = (links, labels) => {
     const items = Object.entries(labels)
@@ -53,8 +60,10 @@
       .map(([k, label]) => `<a href="${esc(links[k])}"${ext(links[k])}>${label}</a>`);
     return items.length ? `<p class="small links">${items.join("")}</p>` : "";
   };
-  const PUB_LINKS = { paper: "Download Paper", slides: "Download Slides", code: "Code" };
-  const TALK_LINKS = { slides: "Slides", video: "Video" };
+  const PUB_LINKS = { doi: "DOI", arxiv: "arXiv", paper: "Download Paper", slides: "Download Slides", code: "Code", url: "Link" };
+  const TALK_LINKS = { paper: "Paper", url: "Link", slides: "Slides", video: "Video" };
+  const ICON_AWARD =
+    '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 3h10v2h3v3a4 4 0 0 1-4 4h-.3A5 5 0 0 1 13 14.9V18h3v3H8v-3h3v-3.1A5 5 0 0 1 8.3 12H8a4 4 0 0 1-4-4V5h3V3Zm0 4H6v1a2 2 0 0 0 1 1.7V7Zm10 0v2.7A2 2 0 0 0 18 8V7h-1Z"/></svg>';
 
   const svg = (body, attrs = 'fill="currentColor"') => `<svg class="icon" viewBox="0 0 24 24" ${attrs} aria-hidden="true">${body}</svg>`;
   const stroke = 'fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
@@ -201,8 +210,11 @@
   const pubUrl = (p) => `publication.html?id=${encodeURIComponent(p.id)}`;
   const talkUrl = (t) => `talk.html?id=${encodeURIComponent(t.id)}`;
   const courseUrl = (c) => `course.html?id=${encodeURIComponent(c.id)}`;
-  const publishedIn = (p) => `Published in <i>${esc(p.venue)}</i>, ${year(p.date)}`;
+  const publishedIn = (p) =>
+    `${p.category === "preprint" ? "" : "Published in "}<i>${esc(p.venue)}</i>, ${year(p.date)}${inJapanese(p)}`;
   const talkMeta = (t) => `${esc(t.type)} at <i>${esc(t.venue)}</i>${t.location ? `, ${esc(t.location)}` : ""}`;
+  const originalTitle = (item) =>
+    item.titleJa ? `<p class="small muted">Original title (Japanese): ${esc(item.titleJa)}</p>` : "";
   const courseMeta = (c) => `${esc(c.type)}, <i>${esc(c.institution)}</i>, ${esc(c.term)}`;
 
   /* ---------- pages ---------- */
@@ -222,12 +234,15 @@
 
     publications() {
       setTitle("Publications");
-      const scholar = SITE.links && SITE.links.googleScholar;
+      const l = SITE.links || {};
+      const profile = l.googleScholar
+        ? { href: l.googleScholar, label: "my Google Scholar profile" }
+        : l.researchmap && { href: l.researchmap, label: "my researchmap profile" };
       main.innerHTML = `
       <article>
         <h1 class="page__title">Publications</h1>
         <div class="page__content">
-          ${scholar ? `<p>You can also find my articles on <a href="${esc(scholar)}"${ext(scholar)}>my Google Scholar profile</a>.</p>` : ""}
+          ${profile ? `<p>You can also find my articles on <a href="${esc(profile.href)}"${ext(profile.href)}>${profile.label}</a>.</p>` : ""}
           ${CATEGORIES.map((c) => {
             const items = PUBLICATIONS.filter((p) => p.category === c.key);
             if (!items.length) return "";
@@ -248,9 +263,10 @@
         <p class="page__meta">${publishedIn(p)}</p>
         <div class="page__content">
           <p class="archive__item-authors">${authors(p.authors)}</p>
-          ${(p.abstract || []).length ? `<h2>Abstract</h2>${paras(p.abstract)}` : ""}
+          ${originalTitle(p)}
           ${linkRow(p.links, PUB_LINKS)}
-          ${p.citation ? `<p class="small">Recommended citation: ${esc(p.citation)}</p>` : ""}
+          ${(p.abstract || []).length ? `<h2>Abstract</h2>${paras(p.abstract)}` : ""}
+          <p class="small">Recommended citation: ${esc(citation(p))}</p>
         </div>
         ${pager(PUBLICATIONS, i, pubUrl)}
       </article>`;
@@ -266,8 +282,10 @@
             (t) => `
             <div class="archive__item">
               <h2 class="archive__item-title"><a href="${talkUrl(t)}">${esc(t.title)}</a></h2>
-              <p class="archive__item-meta">${talkMeta(t)}</p>
+              ${(t.authors || []).length ? `<p class="archive__item-authors">${authors(t.authors)}</p>` : ""}
+              <p class="archive__item-meta">${talkMeta(t)}${inJapanese(t)}</p>
               <p class="archive__item-meta muted">${fmtDay(t.date)}</p>
+              ${awardBadge(t)}
               ${t.excerpt ? `<p class="archive__item-excerpt">${esc(t.excerpt)}</p>` : ""}
             </div>`
           ).join("")}
@@ -283,8 +301,11 @@
       main.innerHTML = `
       <article>
         <h1 class="page__title">${esc(t.title)}</h1>
-        <p class="page__meta">${talkMeta(t)} — ${fmtDay(t.date)}</p>
+        <p class="page__meta">${talkMeta(t)} — ${fmtDay(t.date)}${inJapanese(t)}</p>
         <div class="page__content">
+          ${(t.authors || []).length ? `<p class="archive__item-authors">${authors(t.authors)}</p>` : ""}
+          ${originalTitle(t)}
+          ${awardBadge(t)}
           ${paras(t.description)}
           ${linkRow(t.links, TALK_LINKS)}
         </div>
@@ -326,29 +347,55 @@
 
     cv() {
       setTitle("CV");
-      const section = (title, items) => (items.length ? `<h1>${title}</h1><ul class="cv-list">${items.join("")}</ul>` : "");
+      const list = (items) => `<ul class="cv-list">${items.join("")}</ul>`;
+      const section = (title, items) => (items.length ? `<h1>${title}</h1>${list(items)}` : "");
+      const education = (CV.education || []).map(
+        (e) => `<li><strong>${esc(e.degree)}</strong>, ${esc(e.school)}, ${esc(e.period)}${
+          e.note ? `<br><span class="small">${rich(e.note)}</span>` : ""
+        }</li>`
+      );
+      const experience = (CV.experience || [])
+        .filter((g) => (g.items || []).length)
+        .map(
+          (g) => `<h2>${esc(g.group)}</h2>${list(
+            g.items.map(
+              (w) => `<li><strong>${esc(w.role)}</strong>${w.title ? `<br><i>${esc(w.title)}</i>` : ""}<br><span class="small muted">${[
+                w.detail,
+                w.period,
+              ]
+                .filter(Boolean)
+                .map(esc)
+                .join(" | ")}</span></li>`
+            )
+          )}`
+        )
+        .join("");
+      const pubs = CATEGORIES.map((c) => {
+        const items = PUBLICATIONS.filter((p) => p.category === c.key);
+        return items.length
+          ? `<h2>${esc(c.title)}</h2>${list(
+              items.map(
+                (p) => `<li>${authors(p.authors)}. <a href="${pubUrl(p)}">${esc(p.title)}</a>. <i>${esc(p.venue)}</i>, ${year(p.date)}.${inJapanese(p)}</li>`
+              )
+            )}`
+          : "";
+      }).join("");
       main.innerHTML = `
       <article>
         <h1 class="page__title">CV</h1>
         <div class="page__content">
           ${CV.pdf ? `<p><a href="${esc(CV.pdf)}"${ext(CV.pdf)}>Download CV (PDF)</a></p>` : ""}
-          ${section("Education", (CV.education || []).map((e) => `<li><strong>${esc(e.degree)}</strong>, ${esc(e.school)}, ${esc(e.year)}</li>`))}
+          ${section("Education", education)}
+          ${experience ? `<h1>Work experience</h1>${experience}` : ""}
+          ${section("Skills", (CV.skills || []).map((s) => `<li><strong>${esc(s.label)}:</strong> ${esc(s.items)}</li>`))}
+          ${pubs ? `<h1>Publications</h1>${pubs}` : ""}
           ${section(
-            "Work experience",
-            (CV.experience || []).map(
-              (w) => `<li><strong>${esc(w.period)}</strong>: ${esc(w.title)}, <i>${esc(w.org)}</i>${
-                (w.details || []).length ? `<ul>${w.details.map((d) => `<li>${esc(d)}</li>`).join("")}</ul>` : ""
-              }</li>`
-            )
+            "Talks",
+            TALKS.map((t) => `<li><a href="${talkUrl(t)}">${esc(t.title)}</a>, ${talkMeta(t)}, ${fmtShort(t.date)}.${inJapanese(t)}${
+              t.award ? ` <strong>[${esc(t.award)}]</strong>` : ""
+            }</li>`)
           )}
-          ${section("Skills", (CV.skills || []).map((s) => `<li>${esc(s)}</li>`))}
-          ${section(
-            "Publications",
-            PUBLICATIONS.map((p) => `<li>${authors(p.authors)}. <a href="${pubUrl(p)}">${esc(p.title)}</a>. <i>${esc(p.venue)}</i>, ${year(p.date)}.</li>`)
-          )}
-          ${section("Talks", TALKS.map((t) => `<li><a href="${talkUrl(t)}">${esc(t.title)}</a>, ${talkMeta(t)}, ${fmtMonth(t.date)}</li>`))}
-          ${section("Teaching", TEACHING.map((c) => `<li><a href="${courseUrl(c)}">${esc(c.title)}</a>, ${courseMeta(c)}</li>`))}
-          ${section("Awards", (CV.awards || []).map((a) => `<li><strong>${esc(a.year)}</strong>: ${esc(a.text)}</li>`))}
+          ${section("Awards", (CV.awards || []).map((a) => `<li><strong>${fmtShort(a.date)}</strong>: ${esc(a.name)}, ${esc(a.org)}</li>`))}
           ${section("Service and leadership", (CV.service || []).map((s) => `<li>${esc(s)}</li>`))}
         </div>
       </article>`;
@@ -362,7 +409,6 @@
       <p class="archive__item-authors">${authors(p.authors)}</p>
       <p class="archive__item-meta">${publishedIn(p)}</p>
       ${p.excerpt ? `<p class="archive__item-excerpt">${esc(p.excerpt)}</p>` : ""}
-      ${p.citation ? `<p class="small">Recommended citation: ${esc(p.citation)}</p>` : ""}
       ${linkRow(p.links, PUB_LINKS)}
     </div>`;
   }

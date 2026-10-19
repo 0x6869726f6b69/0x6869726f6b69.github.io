@@ -281,6 +281,24 @@ svg.icon { width: 1.15em; height: 1.15em; flex: none; }
 .pager a:hover { background: var(--text); color: var(--bg); }
 .pager span { opacity: .4; }
 
+/* Award badge */
+.award-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .35em;
+  margin: .1em 0 .5em;
+  padding: .15em .65em;
+  border: 1px solid #d9a521;
+  border-radius: 999px;
+  color: #a77a06;
+  font-size: .75em;
+  font-weight: 700;
+}
+:root[data-theme="dark"] .award-badge { border-color: #e8c25a; color: #f0cf73; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .award-badge { border-color: #e8c25a; color: #f0cf73; }
+}
+
 /* CV */
 .cv-list li { margin-bottom: .6em; }
 
