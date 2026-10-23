@@ -29,30 +29,3 @@ GitHub Pages で公開している個人サイトです（https://0x6869726f6b69
 
 デザインは `assets/css/style.css`、表示のしくみは `assets/js/main.js` にあります。
 
-## 手元で確認する
-
-```bash
-python -m http.server 8000
-```
-
-ブラウザで http://localhost:8000 を開きます。
-
-## 公開（更新）する
-
-```bash
-git add -A
-git commit -m "Update content"
-git push
-```
-
-push して 1〜2 分ほどで GitHub Pages に反映されます。
-
-### 更新がブラウザに反映されないとき
-
-GitHub Pages ではブラウザが CSS / JS を最大10分キャッシュします。
-各 HTML の `style.css?v=...` `data.js?v=...` `main.js?v=...` の `v=` の値を新しいもの（例: `20261020a`）に
-全ページ一括で書き換えてから push すると、すぐに新しいファイルが読み込まれます。
-
-```bash
-sed -i 's/?v=[0-9a-z]*"/?v=20261020a"/g' *.html
-```
