@@ -15,7 +15,7 @@ window.SITE = {
   bio: "PhD Student in Policy and Planning Sciences",
   location: "Tsukuba, JPN",
   affiliation: "University of Tsukuba",
-  avatar: "assets/img/avatar.svg",   // 顔写真に差し替える場合は assets/img/ に置いてパスを変更
+  avatar: "assets/img/profile.jpg",  // 顔写真（差し替える場合は assets/img/ に置いてパスを変更）
   citationName: "Hasegawa, H.",
   since: 2026,
 
@@ -38,16 +38,40 @@ window.ABOUT = {
   ],
 };
 
-/* ---------- News（新しい順に自動で並び、5件ずつ流れて表示されます） ---------- */
-// url を入れると、その行がリンクになります（例: "publication.html?id=arxiv-2604-16894"）
+/* ---------- News（新しい順に自動で並び、5件ずつ流れて表示されます。同じ月は書いた順） ---------- */
+// 文中のリンクは [表示する文字](https://...) や [表示する文字](talk.html?id=...) と書きます
+// url を入れると、その行全体がリンクになります
 window.NEWS = [
-  { date: "2026-10", text: "xxxxxx", url: "" },
-  { date: "2026-08", text: "xxxxxx", url: "" },
-  { date: "2026-06", text: "xxxxxx", url: "" },
-  { date: "2026-04", text: "xxxxxx", url: "" },
-  { date: "2026-02", text: "xxxxxx", url: "" },
-  { date: "2025-12", text: "xxxxxx", url: "" },
-  { date: "2025-10", text: "xxxxxx", url: "" },
+  {
+    date: "2026-11",
+    text: "Gave an oral presentation, “[Periodic Tensor Subspace Analysis for Quantifying Beat-to-Beat Structural Changes](talk.html?id=samit-2026),” at SAMIT 2026.",
+    url: "",
+  },
+  {
+    date: "2026-10",
+    text: "Our paper “[Lightweight Representation Learning for Low Tucker Rank Tensors](https://arxiv.org/abs/2611.01168)” is now on arXiv!",
+    url: "",
+  },
+  {
+    date: "2026-10",
+    text: "Presented a poster, “[Low-Rank Structure Estimation for Time-Series Tensors with Periodic Structure](talk.html?id=ibis-2026),” at IBIS2026.",
+    url: "",
+  },
+  {
+    date: "2026-10",
+    text: "My paper “[Structural Loss Metrics for Tensor Approximation via Matrix Low-Rank Approximation](https://arxiv.org/abs/2607.24009)” is now on arXiv!",
+    url: "",
+  },
+  {
+    date: "2026-10",
+    text: "My manuscript “[When do unfolding singular values determine the best Tucker approximation error?](https://zenodo.org/records/23588889)” is now available on Zenodo.",
+    url: "",
+  },
+  {
+    date: "2026-10",
+    text: "I have been selected as a Research Fellow (DC2, Informatics) of the Japan Society for the Promotion of Science (JSPS).",
+    url: "",
+  },
 ];
 
 /* ---------- Publications ---------- */

@@ -31,9 +31,9 @@
   /* ---------- helpers ---------- */
   const esc = (s) =>
     String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
-  // Escapes text, then turns [label](https://...) into a link.
+  // Escapes text, then turns [label](https://...), [label](mailto:...) or [label](page.html?...) into a link.
   const rich = (s) =>
-    esc(s).replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+)\)/g, (_, label, url) =>
+    esc(s).replace(/\[([^\]]+)\]\(((?:https?:\/\/|mailto:)[^\s)]+|[\w-]+\.html[^\s):]*)\)/g, (_, label, url) =>
       `<a href="${url}"${url.startsWith("http") ? ' target="_blank" rel="noopener"' : ""}>${label}</a>`
     );
   const paras = (list) => (list || []).filter(Boolean).map((p) => `<p>${rich(p)}</p>`).join("");
@@ -426,7 +426,7 @@
             (n) => `
             <li class="news-roll__item">
               <span class="news-roll__date">${fmtMonth(n.date)}</span>
-              <span class="news-roll__text">${n.url ? `<a href="${esc(n.url)}"${ext(n.url)}>${esc(n.text)}</a>` : esc(n.text)}</span>
+              <span class="news-roll__text">${n.url ? `<a href="${esc(n.url)}"${ext(n.url)}>${esc(n.text)}</a>` : rich(n.text)}</span>
             </li>`
           ).join("")}
         </ul>
