@@ -177,6 +177,31 @@ window.PUBLICATIONS = [
 
   /* --- Preprints --- */
   {
+    id: "arxiv-2611-01168",
+    category: "preprint",
+    title: "Lightweight Representation Learning for Low Tucker Rank Tensors",
+    authors: ["Hasegawa, H.", "Okada, Y."],
+    venue: "arXiv preprint arXiv:2611.01168",
+    date: "2026-10-31",
+    abstract: [
+      "Low Tucker rank tensors provide compact representations of multidimensional dependencies, but standard learning pipelines can incur substantial computational and memory overhead from redundant intermediate quantities. We reduce this overhead without modifying the underlying representation objective or parameterization. Our approach combines three complementary components: (i) sequential extraction of only task-required spectral components, avoiding unnecessary full decompositions; (ii) factor-wise multilinear contractions without materializing large Kronecker operators; and (iii) compact latent-state updates without storing full ambient tensor iterates. These components preserve the algebraic operations and learning trajectories of the original algorithms while reducing their computational and memory footprints.",
+      "Across five low Tucker rank tensor estimators, our implementations match the original trajectories to numerical precision (relative discrepancies of 10^-16 to 10^-13), while reducing per-iteration runtime by up to 3.12× and resident memory by up to 616× (99.8%) on the main order-3 benchmark at n = 100, with memory reductions exceeding 900× across the full evaluation suite. These results show that substantial computational redundancy can be eliminated from Tucker representation learning without changing the underlying model or learned representation.",
+    ],
+    links: { arxiv: "https://arxiv.org/abs/2611.01168" },
+  },
+  {
+    id: "zenodo-23588889",
+    category: "preprint",
+    title: "When do unfolding singular values determine the best Tucker approximation error?",
+    authors: ["Hasegawa, H."],
+    venue: "Zenodo",
+    date: "2026-10-23",
+    abstract: [
+      "The singular values of the unfoldings of a tensor bound the error E of its best approximation of lower multilinear rank: max_k tail_k ≤ E² ≤ Σ_k tail_k, where tail_k is the energy of the kth unfolding beyond the target rank. We ask when these singular values determine E. First, for all formats and target ranks, they determine E if and only if the approximating set is defined by a rank constraint on a single unfolding. Second, if exactly t modes are truncated, all to rank one, and the order is at least 2t, there are two tensors with the same unfolding Gram matrices such that one attains the lower and the other the upper bound; these differ by the factor t. Third, the joint Gram matrix of a set of modes determines E if and only if an explicit inequality between dimensions and ranks holds; for order three, every two-mode Gram matrix suffices.",
+    ],
+    links: { doi: "https://doi.org/10.5281/zenodo.23588889" },
+  },
+  {
     id: "arxiv-2607-24009",
     category: "preprint",
     title: "Structural Loss Metrics for Tensor Approximation via Matrix Low-Rank Approximation",
@@ -533,6 +558,19 @@ window.CV = {
       school: "University of Tsukuba",
       period: "Apr. 2020 – Mar. 2024",
       note: "Advisor: [Prof. Kazuyoshi Yata](https://scholar.google.com/citations?hl=ja&user=yi5nkqgAAAAJ)",
+    },
+  ],
+  // Fellowships: 新しい順に書きます
+  fellowships: [
+    {
+      period: "Selected Oct. 2026",
+      name: "JSPS Research Fellow (DC2, Informatics)",
+      org: "Japan Society for the Promotion of Science (JSPS)",
+    },
+    {
+      period: "Apr. 2026 – Present",
+      name: "JST SPRING Fellow",
+      org: "University of Tsukuba",
     },
   ],
   // Work experience: group ごとに見出しが付きます

@@ -45,6 +45,8 @@
   const fmtDay = (d) => { const [y, m, day] = parts(d); return day ? `${MONTHS[m - 1]} ${String(day).padStart(2, "0")}, ${y}` : fmtMonth(d); };
   const year = (d) => parts(d)[0] || "";
   const ext = (url) => (/^https?:/.test(url) ? ' target="_blank" rel="noopener"' : "");
+  // "." after a title unless it already ends with punctuation (e.g. a question).
+  const endStop = (s) => (/[.?!]$/.test(String(s || "").trim()) ? "" : ".");
   const joinNames = (names) => (names.length > 1 ? `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}` : names.join(""));
   const authors = (list) => joinNames((list || []).map((n) => (n === SITE.citationName ? `<strong>${esc(n)}</strong>` : esc(n))));
   const inJapanese = (item) => (item.language === "ja" ? ' <span class="muted">(in Japanese)</span>' : "");
@@ -53,7 +55,7 @@
   const citation = (p) => {
     if (p.citation) return p.citation;
     const link = (p.links && (p.links.doi || p.links.arxiv)) || "";
-    return `${joinNames(p.authors || [])} (${year(p.date)}). ${p.title}. ${p.venue}.${link ? ` ${link}` : ""}`;
+    return `${joinNames(p.authors || [])} (${year(p.date)}). ${p.title}${endStop(p.title)} ${p.venue}.${link ? ` ${link}` : ""}`;
   };
   const linkRow = (links, labels) => {
     const items = Object.entries(labels)
@@ -373,7 +375,7 @@
         return items.length
           ? `<h2>${esc(c.title)}</h2>${list(
               items.map(
-                (p) => `<li>${authors(p.authors).replace(/(\.(<\/strong>)?)?$/, (m) => m || ".")} <a href="${pubUrl(p)}">${esc(p.title)}</a>. <i>${esc(p.venue)}</i>, ${year(p.date)}.${inJapanese(p)}</li>`
+                (p) => `<li>${authors(p.authors).replace(/(\.(<\/strong>)?)?$/, (m) => m || ".")} <a href="${pubUrl(p)}">${esc(p.title)}</a>${endStop(p.title)} <i>${esc(p.venue)}</i>, ${year(p.date)}.${inJapanese(p)}</li>`
               )
             )}`
           : "";
@@ -384,6 +386,10 @@
         <div class="page__content">
           ${CV.pdf ? `<p><a href="${esc(CV.pdf)}"${ext(CV.pdf)}>Download CV (PDF)</a></p>` : ""}
           ${section("Education", education)}
+          ${section(
+            "Fellowships",
+            (CV.fellowships || []).map((f) => `<li><strong>${esc(f.period)}</strong>: ${esc(f.name)}, ${esc(f.org)}</li>`)
+          )}
           ${experience ? `<h1>Work experience</h1>${experience}` : ""}
           ${section("Skills", (CV.skills || []).map((s) => `<li><strong>${esc(s.label)}:</strong> ${esc(s.items)}</li>`))}
           ${pubs ? `<h1>Publications</h1>${pubs}` : ""}
