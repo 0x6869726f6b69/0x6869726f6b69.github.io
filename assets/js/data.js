@@ -44,11 +44,6 @@ window.ABOUT = {
 window.NEWS = [
   {
     date: "2026-11",
-    text: "I made [Claude Skills](https://github.com/0x6869726f6b69/claude-skills) for research workflows (paper review, review-and-revise loops, figure composition, and academic writing) and published them on GitHub. Feel free to use them :)",
-    url: "",
-  },
-  {
-    date: "2026-11",
     text: "My technical note “[Error Bounds and Consistency for Periodicity-Aware Convex Estimation of Tensor Time Series with Mode-Wise Time-Varying Subspaces](https://zenodo.org/records/23935673)” is now available on Zenodo.",
     url: "",
   },
@@ -70,6 +65,11 @@ window.NEWS = [
   {
     date: "2026-10",
     text: "My paper “[Structural Loss Metrics for Tensor Approximation via Matrix Low-Rank Approximation](https://arxiv.org/abs/2607.24009)” is now on arXiv!",
+    url: "",
+  },
+  {
+    date: "2026-10",
+    text: "I made [Claude Skills](https://github.com/0x6869726f6b69/claude-skills) for research workflows (paper review, review-and-revise loops, figure composition, and academic writing) and published them on GitHub. Feel free to use them :)",
     url: "",
   },
   {
