@@ -44,7 +44,7 @@ window.ABOUT = {
 window.NEWS = [
   {
     date: "2026-11",
-    text: "Released the code repository “[periodic-low-rank-tensor](https://github.com/0x6869726f6b69/periodic-low-rank-tensor)” on GitHub.",
+    text: "My technical note “[Error Bounds and Consistency for Periodicity-Aware Convex Estimation of Tensor Time Series with Mode-Wise Time-Varying Subspaces](https://zenodo.org/records/23935673)” is now available on Zenodo.",
     url: "",
   },
   {
@@ -182,15 +182,14 @@ window.PUBLICATIONS = [
 
   /* --- Preprints --- */
   {
-    id: "github-periodic-low-rank-tensor",
+    id: "zenodo-23935673",
     category: "preprint",
-    title: "periodic-low-rank-tensor",
+    title: "Error Bounds and Consistency for Periodicity-Aware Convex Estimation of Tensor Time Series with Mode-Wise Time-Varying Subspaces",
     authors: ["Hasegawa, H."],
-    venue: "GitHub repository",
-    date: "2026-11",
+    venue: "Zenodo (Technical note)",
+    date: "2026-11-04",
     abstract: [],
-    citation: "Hasegawa, H. (2026). periodic-low-rank-tensor [Computer software]. GitHub. https://github.com/0x6869726f6b69/periodic-low-rank-tensor",
-    links: { code: "https://github.com/0x6869726f6b69/periodic-low-rank-tensor" },
+    links: { doi: "https://doi.org/10.5281/zenodo.23935673" },
   },
   {
     id: "arxiv-2611-01168",
