@@ -64,7 +64,7 @@ window.NEWS = [
   },
   {
     date: "2026-10",
-    text: "My paper “[Structural Loss Metrics for Tensor Approximation via Matrix Low-Rank Approximation](https://arxiv.org/abs/2607.24009)” is now on arXiv!",
+    text: "My paper “[Leakage and Multiway Interaction Loss: What Matricization and Single-Mode Truncation Discard from Multiway Signals](https://arxiv.org/abs/2607.24009)” is now on arXiv!",
     url: "",
   },
   {
@@ -224,12 +224,14 @@ window.PUBLICATIONS = [
   {
     id: "arxiv-2607-24009",
     category: "preprint",
-    title: "Structural Loss Metrics for Tensor Approximation via Matrix Low-Rank Approximation",
+    title: "Leakage and Multiway Interaction Loss: What Matricization and Single-Mode Truncation Discard from Multiway Signals",
     authors: ["Hasegawa, H."],
     venue: "arXiv preprint arXiv:2607.24009",
     date: "2026-07-27",
+    // arXiv v2（2026-10-23）のアブストラクト
     abstract: [
-      "Matricized low-rank approximation via SVD is a standard surrogate for tensor decompositions, but entry-wise reconstruction error fails to capture multiway geometric degradation. Under an orthogonal Tucker model, we characterize this degradation using two metrics: cross-mode Direction Loss, measuring geometric subspace deviation from rank truncation and noise rotation, and Interaction Loss, quantifying multilinear interaction distortion in the core tensor. We prove that squared relative reconstruction error orthogonally decomposes into interaction loss and out-of-subspace energy, and derive a Wedin-type bound establishing the stability of a plug-in Direction Loss estimator. Experiments on synthetic and hyperspectral datasets demonstrate that nearly identical reconstruction errors can yield markedly different structural-loss profiles; hyperspectral patches with comparable reconstruction errors exhibit up to a 4.6-fold difference in Direction Loss, correlating with severe visual blurring.",
+      "Tensor methods are said to preserve structure that matrix methods destroy, but what is lost, and why, is unclear. Relative to a multilinear reference, we split the squared error of any reconstruction exactly into coefficient distortion, multiway interaction loss, directional loss, and out-of-model leakage. Directional loss removes components in several modes; interaction loss removes a direction in one mode while its partners in other modes remain. Optimal truncation of a matrix or of an orthogonally decomposable tensor incurs only directional loss, whereas for generic tensors of order three or more with balanced ranks, optimally truncating one unfolding below its rank incurs only interaction loss. Matricization is the extreme case: when the other modes have low rank, it must under-resolve the processed mode at budgets at which multilinear truncation is lossless, and under noise it adds leakage scaling with the product of the unprocessed dimensions.",
+      "For sources with orthonormal signatures in all modes but one, interaction loss is the energy-weighted signature distortion of the surviving sources; without noise, a distortion below a threshold keeps the periodogram estimate within its main lobe and bounds its bias. To first order, multidimensional rotational-invariance estimation sees only in-model noise and single-mode leakage, so the leakage energy removed by tensor-based subspace estimation does not predict its gain. A calibrated resolution makes the split usable under noise. On a measured hyperspectral image with nearly full-rank spatial modes, spectral principal component analysis was as storage-efficient as multilinear truncation.",
     ],
     links: { arxiv: "https://arxiv.org/abs/2607.24009" },
   },
