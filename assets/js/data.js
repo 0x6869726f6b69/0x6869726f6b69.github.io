@@ -44,7 +44,7 @@ window.ABOUT = {
 window.NEWS = [
   {
     date: "2026-11",
-    text: "My technical note “[Error Bounds and Consistency for Periodicity-Aware Convex Estimation of Tensor Time Series with Mode-Wise Time-Varying Subspaces](https://zenodo.org/records/23935673)” is now available on Zenodo.",
+    text: "My technical note “[Error Bounds and Consistency for Periodicity-Aware Convex Estimation of Tensor Time Series with Mode-Wise Time-Varying Subspaces](https://zenodo.org/records/23935673)” is now available on Zenodo!",
     url: "",
   },
   {
@@ -74,7 +74,7 @@ window.NEWS = [
   },
   {
     date: "2026-10",
-    text: "My manuscript “[When do unfolding singular values determine the best Tucker approximation error?](https://zenodo.org/records/23588889)” is now available on Zenodo.",
+    text: "My manuscript “[When do unfolding singular values determine the best Tucker approximation error?](https://zenodo.org/records/23588889)” is now available on Zenodo!",
     url: "",
   },
   {
